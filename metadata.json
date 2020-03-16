@@ -1,0 +1,10 @@
+{
+    "description" : "This is not an official extension. It's only porpuse is to show the status of the NordVPN connection on the task bar all the time.",
+    "name" : "Nord Vpn Status",
+    "shell-version": [
+        "3.34.1"
+    ],
+    "url": "http://here-comes-GitHub-repo-URL.example",
+    "uuid": "nordVpnStatus",
+    "version": 1
+}

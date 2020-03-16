@@ -1,0 +1,17 @@
+.neutral_text{
+    color: white;
+    font-size: 1em;
+    text-shadow: 0 0 20px rgb(0, 0, 0), 1 1 20px rgb(0, 0, 0)
+}
+
+.protected{
+    color: #40ff00;
+    font-size: 1em;
+    text-shadow: 0 0 20px rgb(49, 223, 136), 1 1 20px rgb(49, 223, 136)
+}
+
+.unprotected{
+    color: #ff0000;
+    font-size: 1em;
+    text-shadow: 0 0 20px white, 0.5 0.5 20px white
+}
