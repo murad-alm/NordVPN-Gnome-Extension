@@ -20,4 +20,5 @@ This is <b>NOT</b> an official extension. It's only purpose is to show the statu
 - pop-up window (on click) which features:
   - The ability to connect and disconnect.
   - Change server
+  - Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect
   - connection speed measurement
