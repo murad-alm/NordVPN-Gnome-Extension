@@ -2,7 +2,7 @@
 An extension for gnome-shell to show the status of NordVPN connecntion.
 
 This is <b>NOT</b> an official extension. It's only purpose is to show the status of the NordVPN connection on the task bar all the time.
-Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN website</a> for for official linux tutorials.
+Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN website</a> for official linux tutorials and support.
 
 ## Indicators
 
