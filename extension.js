@@ -1,10 +1,22 @@
+/**
+ * @author Murad Al Moadamani
+ */
+
+/* Import St because it is the library that allow to create UI elements */
 const St = imports.gi.St;
+/*
+ * Import Main because is the instance of the class that have all the UI elements
+ * and we have to add to the Main instance our UI elements
+*/
 const Main = imports.ui.main;
+
 const MainLoop = imports.mainloop;
 const GLib = imports.gi.GLib; //to have terminal access
 
 
 let panelButton, panelButtonText, timeout;
+
+// const PopupMenu = imports.ui.popupMenu;
 
 function init(){
     panelButton = new St.Bin({
@@ -18,13 +30,6 @@ function init(){
         })
     );
 }
-/*
-function setButtonText(){
-    //status = checkStatus().toString();
-    //panelButton.set_child(new St.Label({style_class: "unprotected", text: status}));
-    checkStatus();
-    return true;
-}*/
 
 /*
 Status: Connected,
@@ -37,7 +42,25 @@ Current protocol: UDP,
 Transfer: xx.xx MiB received, 
 xx.xx MiB sent,
 Uptime: xx minutes xx seconds,
+
+
+
+
+Status: Connecting
+Current server: abc123.nordvpn.com
+Country: XXXXXXX
+City: XXXXX
+Your new IP: xxx.xxx.xxx.xxx
+Current technology: OpenVPN
+Current protocol: UDP
+
+
 */
+
+/**
+ * Update message: 
+ * A new version of NordVPN is available! Please update the application.
+ */
 
 
 function checkStatus(){
@@ -49,7 +72,12 @@ function checkStatus(){
         return true;
     }
 
-    else{
+    else if (statusText.startsWith("Status: Connecting")){
+        panelButton.set_child(new St.Label({style_class: "connecting", text: "Connecting.."}));
+        return true;
+    }
+
+    else if (statusText.startsWith("Status: Connected")){
         try{
             server = statusText.split('\n')[1].split(': ')[1].split('.')[0] //extract server name from string
         }catch(e){
