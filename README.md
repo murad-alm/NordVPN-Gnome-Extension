@@ -6,14 +6,19 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
 
 ## Indicators
 
- <h6>When connected, the server name/number will be displayed in green </h3>
- <p align="center">
-  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/connected.png">
+<h6>If disconnected,a red indicator will be displayed </h3>
+<p align="center">
+  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/unprotected.png">
 </p>
 
- <h6>If disconnected, the a red indicator will be displayed </h3>
- <p align="center">
-  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/unprotected.png">
+<h6>While connecting, an orange indicator will be displayed </h3>
+<p align="center">
+  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/connecting.png">
+</p>
+
+<h6>When connected, the server name/number will be displayed in green </h3>
+<p align="center">
+  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/connected.png">
 </p>
 
 ## Coming soon
