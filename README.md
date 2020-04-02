@@ -25,3 +25,6 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
   - Change server
   - Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect
   - connection speed measurement
+
+## Download
+Please check the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">releases</a> to download the latest version.
