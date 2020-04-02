@@ -21,3 +21,36 @@
     font-size: 1em;
     text-shadow: 0 0 20px white, 0.5 0.5 20px white
 }
+
+.PopupSubMenuMenuItemStyle {
+	margin: 10px;
+	padding-left: 20px;
+}
+
+.idle_icon {
+    background-image: url(assets/idle.svg);
+    background-size: 18px;
+    height: 18px;
+    width: 18px; 
+}
+
+.connected_icon {
+    background-image: url(assets/connected.svg);
+    background-size: 18px;
+    height: 18px;
+    width: 18px; 
+}
+
+.disconnected_icon {
+    background-image: url(assets/disconnected.svg);
+    background-size: 18px;
+    height: 18px;
+    width: 18px;
+}
+
+.connecting_icon {
+    background-image: url(assets/connecting.svg);
+    background-size: 18px;
+    height: 18px;
+    width: 18px;
+}
