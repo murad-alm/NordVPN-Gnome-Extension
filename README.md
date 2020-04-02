@@ -6,7 +6,7 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
 
 ## Indicators
 
-<h6>If disconnected,a red indicator will be displayed  
+<h6>If disconnected, a red indicator will be displayed  
   <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
 </h6>
 
