@@ -28,7 +28,7 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordV
 ## Indicators
 
 <p>
-   When disconnected,  a red indicator will be displayed &emsp; &emsp;
+   When disconnected,  a red indicator will be displayed &emsp;&emsp;
   <img width="50" height="30"" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
 </p>
 
