@@ -1,8 +1,29 @@
 # NordVPNStatus
 An extension for gnome-shell to show the status of NordVPN connecntion.
 
-This is <b>NOT</b> an official extension. It's only purpose is to show the status of the NordVPN connection on the task bar all the time.
-Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN website</a> for official linux tutorials and support.
+
+## Disclaimer
+
+###### Nothing official
+
+This extension has been made **without any endorsement or support from NordVPN.**
+The developer has no ties nor affiliation whatsoever with NordVPN, its
+services, nor its software.
+Naturally, this extension is free and isn't, shouldn't and will **not be
+subject to any form of profit or compensation**.
+
+
+###### Release and use
+
+This extension was made for personal needs and use. The code is release on the
+off chance it might be of use to someone but without the intention of providing
+any form of utility software or service in a rigorous manner.
+Therefore, **no support** is endorsed by the developer, meaning that **any
+comment, feedback, or request regarding this code should be expected to be completely
+ignored by the developer**.
+Additionally, the responsibility of any undesired effect the execution of this
+code might have on any system lies solely in the hands of the user.
+Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordVPN website**</a> for official linux tutorials and support.
 
 ## Indicators
 
@@ -33,7 +54,7 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
 Please check the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">releases</a> to download the latest version.
 
 ## Installation
-Please follow the following steps after downloading the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">.zip file</a>:
+First download and install NordVPN for linux from the <a href="https://nordvpn.com/download/linux/">official website</a>, then follow the following steps after downloading the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">.zip file</a>:
 
 - Create a new directory into which you will unzip the content of the previously downloaded gnome extension. Make sure to set the directory name to <b>nordVpnStatus</b>:
 ```script
