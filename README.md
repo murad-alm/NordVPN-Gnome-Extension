@@ -43,12 +43,11 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordV
 </p>
 
 ## Coming soon
-- Detailed information of the current connection on mouse-over.
-- pop-up window (on click) which features:
-  - The ability to connect and disconnect.
-  - Change server
-  - Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect
-  - connection speed measurement
+- [ ] Detailed information about the current connection.
+- [ ] The ability to connect and disconnect.
+- [ ] Change server.
+- [ ] Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect.
+- [ ] connection speed measurement.
 
 ## Download
 Please check the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">releases</a> to download the latest version.
