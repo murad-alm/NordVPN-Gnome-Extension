@@ -7,7 +7,7 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
 ## Indicators
 
 <p>
-   While disconnected,  a red indicator will be displayed  &nbsp;
+   While disconnected,  a red indicator will be displayed &emsp;&emsp;
   <img width="50" height="30"" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
 </p>
 
@@ -48,4 +48,4 @@ $ unzip ~/Downloads/NordVPNStatus-VERSION_NUMBER.zip ~/.local/share/gnome-shell/
 ```script
 $ gnome-extensions enable nordVpnStatus
 ```
-- You may need to restart gnome-shell. Press <kbd>Alt</kbd> and <kbd>F2</kbd> and type `r` then <kbd>Enter</kbd>.
+- You may need to restart gnome-shell. Press <kbd>Alt</kbd> and <kbd>F2</kbd>, type `r` then <kbd>Enter</kbd>.
