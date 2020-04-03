@@ -6,16 +6,19 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
 
 ## Indicators
 
-<p>If disconnected, a red indicator will be displayed  
-  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
+<p>
+  If disconnected, a red indicator will be displayed &emsp;
+  <img width="50" height="30"" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
 </p>
 
-<p>While connecting, an orange indicator will be displayed  
-  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connecting.svg">
+<p>
+  While connecting, an orange indicator will be displayed &emsp;
+  <img width="50" height="30"src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connecting.svg">
 </p>
   
-<p>When connected, the server name/number will be displayed in green  
-  <img width="400" height="25" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connected.svg">
+<p>
+  When connected, the icon will be displayed in green &emsp;
+  <img width="50" height="30" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connected.svg">
 </p>
 
 ## Coming soon
@@ -28,3 +31,4 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">official NordVPN
 
 ## Download
 Please check the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">releases</a> to download the latest version.
+
