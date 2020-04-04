@@ -27,30 +27,96 @@
 	padding-left: 20px;
 }
 
-.idle_icon {
+.idle-icon {
     background-image: url(assets/idle.svg);
     background-size: 18px;
     height: 18px;
     width: 18px; 
 }
 
-.connected_icon {
+.connected-icon {
     background-image: url(assets/connected.svg);
     background-size: 18px;
     height: 18px;
     width: 18px; 
 }
 
-.disconnected_icon {
+.disconnected-icon {
     background-image: url(assets/disconnected.svg);
     background-size: 18px;
     height: 18px;
     width: 18px;
 }
 
-.connecting_icon {
+.connecting-icon {
     background-image: url(assets/connecting.svg);
     background-size: 18px;
     height: 18px;
     width: 18px;
+}
+
+.action-button-disconnected{
+    color: rgba(255,255,255,1.0);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(62,179,79);
+}
+
+.action-button-disconnected:hover{
+    background-color: rgb(93, 219, 20)
+}
+  
+.action-button-disconnected:active{
+    color: rgba(255,255,255,0.6);
+    font-weight: normal;
+    background-color: rgb(30, 121, 12);
+    padding: 2px;
+    border: 3px;
+    border-color: rgba(130,130,130,0.5);
+}
+
+.action-button-connected{
+    color: rgba(255,255,255,1.0);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(201, 5, 5);
+}
+  
+.action-button-connected:hover{
+    background-color: rgb(255,10,10)
+}
+  
+.action-button-connected:active{
+    color: rgba(255,255,255,0.6);
+    font-weight: normal;
+    background-color: rgb(126, 23, 23);
+    padding: 2px;
+    border: 3px;
+    border-color: rgba(130,130,130,0.5);
+}
+
+.action-button-connecting{
+    color: rgba(255,255,255,1.0);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(252, 122, 0);
+}
+  
+.action-button-connecting:hover{
+    background-color: rgb(252, 193, 0);
+}
+  
+.action-button-connecting:active{
+    color: rgba(255,255,255,0.6);
+    font-weight: normal;
+    background-color: rgb(170, 84, 4);
+    padding: 2px;
+    border: 3px;
+    border-color: rgba(130,130,130,0.5);
 }
