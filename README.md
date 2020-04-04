@@ -44,9 +44,9 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordV
 
 ## Coming soon
 - [ ] Detailed information about the current connection.
-- [ ] The ability to connect and disconnect.
+- [x] The ability to connect and disconnect.
 - [ ] Change server.
-- [ ] Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect.
+- [x] Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect.
 - [ ] connection speed measurement.
 
 ## Download
