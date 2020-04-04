@@ -69,3 +69,4 @@ $ unzip ~/Downloads/NordVPNStatus-VERSION_NUMBER.zip ~/.local/share/gnome-shell/
 $ gnome-extensions enable nordVpnStatus
 ```
 - You may need to restart gnome-shell. Press <kbd>Alt</kbd> and <kbd>F2</kbd>, type `r` then <kbd>Enter</kbd>.
+
