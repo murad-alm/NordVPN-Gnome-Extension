@@ -20,8 +20,9 @@ const PanelMenu = imports.ui.panelMenu;
 
 // const CONNECTION_STATUS = Object.freeze({ "connected": 1, "disconnected": 2, "connecting": 3 });
 
-let nvpnStatusBtn, timeout, icon, panelBox, actionButton, label;
+let nvpnStatusBtn, timeout, icon, panelBox, actionButton;
 let killSwitchToggle, cyberSecToggle, obfuscateToggle, notifyToggle, autoConnectToggle;
+// let externalIPLabel, connectionInfoLabel;
 
 
 /**
@@ -32,7 +33,9 @@ let killSwitchToggle, cyberSecToggle, obfuscateToggle, notifyToggle, autoConnect
  * [ ] handle login in UI
  * [x] don't display any options if nordvpn is not installed or if the user is not logged in.
  * [ ] one method to execute shell commands instead of calls all over the place..
- * [ ] if connected display current connection info
+ * [x] if connected display current connection info
+ * [ ] actionButton: while trying to connect, wait before activating the button again (thread.wait)
+ * [ ] show external ip address
  */
 
 
@@ -54,7 +57,7 @@ const NordVPNStatusButton = new Lang.Class({
         if (!this.checkNordVpnInstalled()) {                                             // Check if nordvpn is installed on the system
             this.initNotFound();
         }
-        else if (this.checkUserLoggedIn()) {                                           // Check if the user is logged in
+        else if (!this.checkUserLoggedIn()) {                                           // Check if the user is logged in
             this.initNotLoggedIn();
         }
         else {
@@ -63,48 +66,71 @@ const NordVPNStatusButton = new Lang.Class({
             this.setToggleActions();                                                    // Set the functionality of the toggle switches
             this.setActionButton("disconnected");                                       // Set the status of the action button at start
             actionButton.connect('clicked', this.setActionButtonOnClick.bind(this));    // Assign the `OnClick` functionality to the actionButton
+            // timeout = MainLoop.timeout_add_seconds(1.0, this.checkConnectionStatus);  // Timeout to check the connection status every 1 second
         }
 
     },
 
+    /**
+     * This function will be called if nordvpn is not installed on the system
+     */
     initNotFound: function () {
         // Initialize the message to display
         msg = 'NordVPN was not found!\n' +
-              'Please install it and re-enable this extension.';
+            'Please install it and re-enable this extension.';
         label = new St.Label({ text: msg, x_align: St.Align.END });
         // textBox will hole the labe
         textBox = new St.BoxLayout();
         textBox.set_vertical(true);
         textBox.add_child(label);
         // Setup the container that holds the textBox and add it to the menu
-        container = new PopupMenu.PopupBaseMenuItem({reactive: false});
+        container = new PopupMenu.PopupBaseMenuItem({ reactive: false });
         container.actor.add(textBox, { expand: true, x_fill: true });
         this.menu.addMenuItem(container);
     },
 
-    initNotLoggedIn: function(){
+    /**
+     * This function will be called if the user hasn't logged in to his account
+     */
+    initNotLoggedIn: function () {
         // Initialize the message to display
         msg = 'You are not logged in to NordVPN!\n' +
-              'Please log in using terminal and re-enable this extension.';
+            'Please log in using terminal and re-enable this extension.';
         label = new St.Label({ text: msg, x_align: St.Align.END });
         // textBox will hole the labe
         textBox = new St.BoxLayout();
         textBox.set_vertical(true);
         textBox.add_child(label);
         // Setup the container that holds the textBox and add it to the menu
-        container = new PopupMenu.PopupBaseMenuItem({reactive: false});
+        container = new PopupMenu.PopupBaseMenuItem({ reactive: false });
         container.actor.add(textBox, { expand: true, x_fill: true });
         this.menu.addMenuItem(container);
     },
 
     initUI: function () {
+        // Connection information
+        connectionInfoLabel = new St.Label({ text: "initializing.." });
+        textBox = new St.BoxLayout();
+        textBox.set_vertical(true);
+        textBox.add_child(connectionInfoLabel);
+        container = new PopupMenu.PopupBaseMenuItem({ reactive: false });
+        container.actor.add(textBox, { expand: true, x_fill: true });
+        let popupMenuExpander = new PopupMenu.PopupSubMenuMenuItem('Connection Information');
+
+        // externalIPLabel = new St.Label({ x_align: St.Align.END });
+        // this.setExternalIPLabel("idle");
+        // popupMenuExpander.menu.box.add(externalIPLabel);
+
+        popupMenuExpander.menu.addMenuItem(container);
+
+
+
         // Toggle Switches
         killSwitchToggle = new PopupMenu.PopupSwitchMenuItem('Kill Switch');
         cyberSecToggle = new PopupMenu.PopupSwitchMenuItem('CyberSec');
         obfuscateToggle = new PopupMenu.PopupSwitchMenuItem('Obfuscate');
         notifyToggle = new PopupMenu.PopupSwitchMenuItem('Notify');
         autoConnectToggle = new PopupMenu.PopupSwitchMenuItem('Auto Connect');
-
 
         // Action Button
         actionButtonContainer = new PopupMenu.PopupBaseMenuItem({ reactive: false, can_focus: false }); // The container will hold the innerBox
@@ -114,16 +140,8 @@ const NordVPNStatusButton = new Lang.Class({
         innerBox.add_child(actionButton);
         actionButtonContainer.actor.add(innerBox, { expand: true });
 
-        /*
-        let popupMenuExpander = new PopupMenu.PopupSubMenuMenuItem('More Information');
-        let subMenu = new PopupMenu.PopupMenuItem('PopupMenuItem');
-        label = new St.Label({ text: 'Item 1' });
-
-        popupMenuExpander.menu.addMenuItem(subMenu);
-        popupMenuExpander.menu.box.add(label);
-        */
-
         // Add the elements to the menu
+        this.menu.addMenuItem(popupMenuExpander);
         this.menu.addMenuItem(killSwitchToggle);
         this.menu.addMenuItem(cyberSecToggle);
         this.menu.addMenuItem(obfuscateToggle);
@@ -131,7 +149,6 @@ const NordVPNStatusButton = new Lang.Class({
         this.menu.addMenuItem(autoConnectToggle);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu.addMenuItem(actionButtonContainer);
-        // this.menu.addMenuItem(popupMenuExpander);
     },
 
     checkNordVpnInstalled: function () {
@@ -154,7 +171,7 @@ const NordVPNStatusButton = new Lang.Class({
         }
     },
 
-    changeStatus: function (newStatus) {
+    changeStatus: function (newStatus, statMessage) {
         // First set up panelBox (which contains the icon)
         this.actor.remove_child(panelBox);
         this.setPanelBox(newStatus);
@@ -162,6 +179,51 @@ const NordVPNStatusButton = new Lang.Class({
         // The change the status of the actionButton
         this.setActionButton(newStatus);
 
+        // When the connection's status is changed, change the label of the external IP address
+        // this.setExternalIPLabel();
+
+        // Set the connection information
+        this.setInfoMessage(newStatus, statMessage);
+    },
+
+    // setExternalIPLabel: function (newStatus) {
+    //     externalIPAddress = GLib.spawn_command_line_sync('curl --silent ifconfig.me')[1].toString();          // Get external IP address
+    //     if (newStatus.toString() == "connected") {
+    //         externalIPLabel.set_text("New IP: " + externalIPAddress);                                         // Set external IP label
+    //     }
+    //     else {
+    //         externalIPLabel.set_text("Current IP: " + externalIPAddress);                                     // Set external IP label
+    //     }
+
+    // },
+
+    setInfoMessage: function (newStatus, statMessage) {
+        if (newStatus == "connected") {
+            out = statMessage.toString();
+
+            // Extract the information from the status message
+            server = out.split('\n')[1].split(': ')[1];
+            country = out.split('\n')[2].split(': ')[1];
+            city = out.split('\n')[3].split(': ')[1];
+            ipAddr = out.split('\n')[4].split(': ')[1];
+            tech = out.split('\n')[5].split(': ')[1];
+            protocol = out.split('\n')[6].split(': ')[1];
+            transfer_rec = out.split('\n')[7].split(': ')[1].split('received')[0];
+            transfer_snd = out.split('\n')[7].split(': ')[1].split(', ')[1].split('sent')[0];
+
+            // Construct the info message
+            infoMessage = "Connected to:         " + country + ", " + city + "\n";
+            infoMessage += "Server:                         " + server + "\n";
+            infoMessage += "IP Address:               " + ipAddr + "\n";
+            infoMessage += "Technology:              " + tech + "\n";
+            infoMessage += "Protocol:                    " + protocol + "\n";
+            infoMessage += "Transfer:                    \u2193" + transfer_rec + ", \u2191" + transfer_snd;
+
+            connectionInfoLabel.set_text(infoMessage);
+        }
+        else {
+            connectionInfoLabel.set_text("Your are not connected to NordVPN!");
+        }
     },
 
     setToggles: function () {
@@ -221,7 +283,7 @@ const NordVPNStatusButton = new Lang.Class({
         }
     },
 
-    setToggleActions: function () {
+    setToggleActions: function () {00
         // killSwitchToggle, cyberSecToggle, obfuscateToggle, notifyToggle, autoConnectToggle;
         killSwitchToggle.connect('toggled', Lang.bind(this, function (Object, value) {
             if (value) {
@@ -324,8 +386,7 @@ const NordVPNStatusButton = new Lang.Class({
     },
 
     destroy: function () {
-        this.parent();  // Call the paren destroy function
-
+        this.parent();  // Call the parent destroy function
     }
 });
 
@@ -336,13 +397,13 @@ function checkConnectionStatus() {
 
     // Disconnected
     if (statusText == "Status: Disconnected\n") {
-        nvpnStatusBtn.changeStatus("disconnected");
+        nvpnStatusBtn.changeStatus("disconnected", out);
         return true;
     }
 
     // Connecting
     else if (statusText.startsWith("Status: Connecting")) {
-        nvpnStatusBtn.changeStatus("connecting");
+        nvpnStatusBtn.changeStatus("connecting", out);
         return true;
     }
 
@@ -353,13 +414,14 @@ function checkConnectionStatus() {
         } catch (e) {
             logError(e, 'ExtensionError');
         }
-        nvpnStatusBtn.changeStatus("connected");
+        nvpnStatusBtn.changeStatus("connected", out);
         return true;
     }
 }
 
 
 function init() {
+    // nvpnStatusBtn = new NordVPNStatusButton;
 }
 
 
@@ -373,11 +435,11 @@ function enable() {
      */
     Main.panel.addToStatusArea('NordVPNStatusButton', nvpnStatusBtn, 0, 'right');
     timeout = MainLoop.timeout_add_seconds(1.0, checkConnectionStatus);
-
 }
 
 
 function disable() {
     // MainLoop.secure_remove(timeout);  
     nvpnStatusBtn.destroy();
+    // MainLoop.secure_remove(timeout); 
 }
