@@ -52,8 +52,7 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordV
 
 ## Coming soon
 - [x] Detailed information about the current connection.
-- [x] The ability to connect and disconnect.
-- [ ] Change server.
+- [ ] Choose server (country & city)
 - [x] Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect.
 - [ ] Handle login within the UI.
 - [ ] installation script.
