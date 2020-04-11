@@ -22,8 +22,6 @@ const PanelMenu = imports.ui.panelMenu;
 
 let nvpnStatusBtn, timeout, icon, panelBox, actionButton;
 let killSwitchToggle, cyberSecToggle, obfuscateToggle, notifyToggle, autoConnectToggle;
-// let externalIPLabel, connectionInfoLabel;
-
 
 /**
  * TODOs:
@@ -35,7 +33,7 @@ let killSwitchToggle, cyberSecToggle, obfuscateToggle, notifyToggle, autoConnect
  * [ ] one method to execute shell commands instead of calls all over the place..
  * [x] if connected display current connection info
  * [ ] actionButton: while trying to connect, wait before activating the button again (thread.wait)
- * [ ] show external ip address
+ * [x] BUG!! DON'T activate the timeloop unless nordvpn is installed and user has logged in | O R | move the mainloop inside the NordVPNStatusButton class
  */
 
 
@@ -43,8 +41,13 @@ const NordVPNStatusButton = new Lang.Class({
     Name: 'StatusButton',      // Class name
     Extends: PanelMenu.Button,  // Parent class
 
-    //Constructor
-    _init: function () {
+    /**
+     * Constructor will become an argument which indicates to the client's status as following:
+     *      0 - client is ready (nordvpn is installed & user is already logged in).
+     *      1 - nordvpn is not installed.
+     *      2 - user hasn't logged in yet.
+     */
+    _init: function (clientStatus) {
         /*
          * Call the parent constructor
          * first argument is the menu alignment (1 is left, 0 right and 0.5 is centered)
@@ -54,10 +57,10 @@ const NordVPNStatusButton = new Lang.Class({
         this.parent(1, 'StatusButton', false);
         this.setPanelBox("idle");                                                       // Set the box in the upper panel
 
-        if (!this.checkNordVpnInstalled()) {                                             // Check if nordvpn is installed on the system
+        if (clientStatus == 1) {                                                        // If nordvpn is not installed on the system
             this.initNotFound();
         }
-        else if (!this.checkUserLoggedIn()) {                                           // Check if the user is logged in
+        else if (clientStatus == 2) {                                                   // If the user is not logged in
             this.initNotLoggedIn();
         }
         else {
@@ -66,7 +69,6 @@ const NordVPNStatusButton = new Lang.Class({
             this.setToggleActions();                                                    // Set the functionality of the toggle switches
             this.setActionButton("disconnected");                                       // Set the status of the action button at start
             actionButton.connect('clicked', this.setActionButtonOnClick.bind(this));    // Assign the `OnClick` functionality to the actionButton
-            // timeout = MainLoop.timeout_add_seconds(1.0, this.checkConnectionStatus);  // Timeout to check the connection status every 1 second
         }
 
     },
@@ -116,13 +118,7 @@ const NordVPNStatusButton = new Lang.Class({
         container = new PopupMenu.PopupBaseMenuItem({ reactive: false });
         container.actor.add(textBox, { expand: true, x_fill: true });
         let popupMenuExpander = new PopupMenu.PopupSubMenuMenuItem('Connection Information');
-
-        // externalIPLabel = new St.Label({ x_align: St.Align.END });
-        // this.setExternalIPLabel("idle");
-        // popupMenuExpander.menu.box.add(externalIPLabel);
-
         popupMenuExpander.menu.addMenuItem(container);
-
 
 
         // Toggle Switches
@@ -151,26 +147,6 @@ const NordVPNStatusButton = new Lang.Class({
         this.menu.addMenuItem(actionButtonContainer);
     },
 
-    checkNordVpnInstalled: function () {
-        out = GLib.spawn_command_line_sync("nordvpn --version")[1].toString();
-        if (out.startsWith("NordVPN Version")) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    },
-
-    checkUserLoggedIn: function () {
-        out = GLib.spawn_command_line_sync("/bin/bash -c \"echo '' | nordvpn login | grep -Po 'already logged'\"")[1].toString();
-        if (out.startsWith("already logged")) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    },
-
     changeStatus: function (newStatus, statMessage) {
         // First set up panelBox (which contains the icon)
         this.actor.remove_child(panelBox);
@@ -179,23 +155,9 @@ const NordVPNStatusButton = new Lang.Class({
         // The change the status of the actionButton
         this.setActionButton(newStatus);
 
-        // When the connection's status is changed, change the label of the external IP address
-        // this.setExternalIPLabel();
-
         // Set the connection information
         this.setInfoMessage(newStatus, statMessage);
     },
-
-    // setExternalIPLabel: function (newStatus) {
-    //     externalIPAddress = GLib.spawn_command_line_sync('curl --silent ifconfig.me')[1].toString();          // Get external IP address
-    //     if (newStatus.toString() == "connected") {
-    //         externalIPLabel.set_text("New IP: " + externalIPAddress);                                         // Set external IP label
-    //     }
-    //     else {
-    //         externalIPLabel.set_text("Current IP: " + externalIPAddress);                                     // Set external IP label
-    //     }
-
-    // },
 
     setInfoMessage: function (newStatus, statMessage) {
         if (newStatus == "connected") {
@@ -283,7 +245,7 @@ const NordVPNStatusButton = new Lang.Class({
         }
     },
 
-    setToggleActions: function () {00
+    setToggleActions: function () {
         // killSwitchToggle, cyberSecToggle, obfuscateToggle, notifyToggle, autoConnectToggle;
         killSwitchToggle.connect('toggled', Lang.bind(this, function (Object, value) {
             if (value) {
@@ -375,7 +337,7 @@ const NordVPNStatusButton = new Lang.Class({
             case "connecting":
                 icon = new St.Icon({ style_class: 'connecting-icon' });
                 break;
-            default:
+            case "idle":
                 icon = new St.Icon({ style_class: 'idle-icon' });
         }
 
@@ -419,6 +381,26 @@ function checkConnectionStatus() {
     }
 }
 
+function checkNordVpnInstalled() {
+    out = GLib.spawn_command_line_sync("nordvpn --version")[1].toString();
+    if (out.startsWith("NordVPN Version")) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function checkUserLoggedIn() {
+    out = GLib.spawn_command_line_sync("/bin/bash -c \"echo '' | nordvpn login | grep -Po 'already logged'\"")[1].toString();
+    if (out.startsWith("already logged")) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 
 function init() {
     // nvpnStatusBtn = new NordVPNStatusButton;
@@ -426,20 +408,26 @@ function init() {
 
 
 function enable() {
-    nvpnStatusBtn = new NordVPNStatusButton;
-    /**
+    if (!checkNordVpnInstalled()) {
+        nvpnStatusBtn = new NordVPNStatusButton(1);
+    }
+    else if (!checkUserLoggedIn()) {
+        nvpnStatusBtn = new NordVPNStatusButton(2);
+    }
+    else if (checkNordVpnInstalled() && checkUserLoggedIn()){
+        nvpnStatusBtn = new NordVPNStatusButton(0);    
+        timeout = MainLoop.timeout_add_seconds(1.0, checkConnectionStatus);
+    }
+    /** 
      * Add the button to the status area
      * first argument is the role, must be unique. You can access it from the Looking Glass in 'Main.panel.statusArea.NordVPNStatusButton`
      * second argument is the position
      * finally where we want the button to be displayed in the box (left, right, center)
      */
     Main.panel.addToStatusArea('NordVPNStatusButton', nvpnStatusBtn, 0, 'right');
-    timeout = MainLoop.timeout_add_seconds(1.0, checkConnectionStatus);
 }
 
 
 function disable() {
-    // MainLoop.secure_remove(timeout);  
     nvpnStatusBtn.destroy();
-    // MainLoop.secure_remove(timeout); 
 }
