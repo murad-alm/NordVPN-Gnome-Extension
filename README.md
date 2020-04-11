@@ -5,23 +5,29 @@ An extension for gnome-shell to show the status of NordVPN connecntion. <br>
 </p>
 
 <h6>Indicators:</h6>
-<p>
-   When disconnected,  a red indicator will be displayed &emsp;&emsp;
-  <img width="50" height="30"" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
-</p>
-
-<p>
-   While connecting, an orange indicator will be displayed &emsp;
-  <img width="50" height="30"src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connecting.svg">
-</p>
-  
-<p>
-   When connected, the icon will be displayed in green &emsp; &emsp;
-  <img width="50" height="30" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connected.svg">
-</p>
+<ul>
+   <li>
+      <p>
+         When disconnected,  a red indicator will be displayed &emsp;&emsp;
+        <img width="50" height="30"" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/disconnected.svg">
+      </p>
+  </li>
+                                                                                                                      
+  <li>
+      <p>
+         While connecting, an orange indicator will be displayed &emsp;
+        <img width="50" height="30"src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connecting.svg">
+      </p>
+  </li>
+  <li>
+      <p>
+         When connected, the icon will be displayed in green &emsp; &emsp;
+        <img width="50" height="30" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/connected.svg">
+      </p>
+   </li>
+</ul>
 
 ## Disclaimer
-
 ###### Nothing official
 
 This extension has been made **without any endorsement or support from NordVPN.**
