@@ -1,7 +1,7 @@
 # NordVPNStatus
 An extension for gnome-shell to show the status of NordVPN connecntion. <br>
 <p align="center">
-   <img width="200" height="230" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/screenshots/Screenshot.png">
+   <img width="300" height="330" src="https://github.com/murad-alm/NordVPNStatus/blob/master/assets/screenshots/Screenshot.png">
 </p>
 
 <h6>Indicators:</h6>
