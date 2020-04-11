@@ -48,6 +48,7 @@ Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordV
 - [ ] Change server.
 - [x] Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect.
 - [ ] Handle login within the UI.
+- [ ] installation script.
 
 ## Download
 Please check the <a href= "https://github.com/murad-alm/NordVPNStatus/releases">releases</a> to download the latest version.
