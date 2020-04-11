@@ -50,7 +50,7 @@ Additionally, the responsibility of any undesired effect the execution of this
 code might have on any system lies solely in the hands of the user.
 Please visit the <a href="https://nordvpn.com/tutorials/linux/">**official NordVPN website**</a> for official linux tutorials and support.
 
-## Coming soon
+## Coming Soon
 - [x] Detailed information about the current connection.
 - [ ] Choose server (country & city)
 - [x] Toggle buttons for de-/ activating killswitch, cybersec, obfuscate, notifications and auto-connect.
