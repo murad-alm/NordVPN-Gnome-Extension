@@ -28,7 +28,7 @@ A gnome-shell extension for NordVPN. <br>
 </ul>
 
 ## Development Status
-I stopped working on this extension due to lack of time. Feel free to fork and pull requests are always welcome!
+<b><h3>I stopped working on this extension due to lack of time. Feel free to fork and pull requests are always welcome!</h3></b>
 
 ## Disclaimer
 ###### Nothing official
